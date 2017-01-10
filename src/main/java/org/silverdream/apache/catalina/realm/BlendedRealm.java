@@ -119,7 +119,7 @@ public class BlendedRealm extends RealmBase {
         realms.add(theRealm);
 
         if (log.isDebugEnabled()) {
-            log.debug(sm.getString("extRoleCombinedRealm.addRealm", theRealm.getInfo(),
+            log.debug(sm.getString("blendedRealm.addRealm", theRealm.getInfo(),
                     Integer.toString(realms.size())));
         }
     }
@@ -283,7 +283,7 @@ public class BlendedRealm extends RealmBase {
                 } catch (LifecycleException e) {
                     // If realm doesn't start can't authenticate against it
                     iter.remove();
-                    log.error(sm.getString("extRoleCombinedRealm.realmStartFail",
+                    log.error(sm.getString("blendedRealm.realmStartFail",
                             realm.getInfo()), e);
                 }
             }
@@ -434,8 +434,8 @@ public class BlendedRealm extends RealmBase {
         // Stack trace will show where this was called from
         UnsupportedOperationException uoe =
                 new UnsupportedOperationException(
-                        sm.getString("extRoleCombinedRealm.getPassword"));
-        log.error(sm.getString("extRoleCombinedRealm.unexpectedMethod"), uoe);
+                        sm.getString("blendedRealm.getPassword"));
+        log.error(sm.getString("blendedRealm.unexpectedMethod"), uoe);
         throw uoe;
     }
 
@@ -445,8 +445,8 @@ public class BlendedRealm extends RealmBase {
         // Stack trace will show where this was called from
         UnsupportedOperationException uoe =
                 new UnsupportedOperationException(
-                        sm.getString("extRoleCombinedRealm.getPrincipal"));
-        log.error(sm.getString("extRoleCombinedRealm.unexpectedMethod"), uoe);
+                        sm.getString("blendedRealm.getPrincipal"));
+        log.error(sm.getString("blendedRealm.unexpectedMethod"), uoe);
         throw uoe;
     }
 
@@ -462,7 +462,7 @@ public class BlendedRealm extends RealmBase {
     private GenericPrincipal checkAuthentication(Realm authRealm, String username,
                                           GenericPrincipal authenticatedUser) {
         if (log.isDebugEnabled()) {
-            log.debug(sm.getString("extRoleCombinedRealm.authStart", username,
+            log.debug(sm.getString("blendedRealm.authStart", username,
                     authRealm.getClass().getName()));
         }
 
@@ -471,12 +471,12 @@ public class BlendedRealm extends RealmBase {
 
         if (authenticatedUser == null) {
             if (log.isDebugEnabled()) {
-                log.debug(sm.getString("extRoleCombinedRealm.authFail", username,
+                log.debug(sm.getString("blendedRealm.authFail", username,
                         authRealm.getClass().getName()));
             }
         } else {
             if (log.isDebugEnabled()) {
-                log.debug(sm.getString("extRoleCombinedRealm.authSuccess",
+                log.debug(sm.getString("blendedRealm.authSuccess",
                         username, authRealm.getClass().getName()));
             }
 
@@ -490,14 +490,14 @@ public class BlendedRealm extends RealmBase {
 
             if (roleUser != null) {
                 if (log.isDebugEnabled()) {
-                    log.debug(sm.getString("extRoleCombinedRealm.authSuccess",
+                    log.debug(sm.getString("blendedRealm.authSuccess",
                             username, roleRealm.getClass().getName()));
                 }
 
                 roles.addAll(Arrays.asList(roleUser.getRoles()));
 
                 if (log.isDebugEnabled()) {
-                    log.debug(sm.getString("extRoleCombinedRealm.roles",
+                    log.debug(sm.getString("blendedRealm.roles",
                             username, roles));
                 }
 
