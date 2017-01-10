@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+repositories {
+    maven {
+        url "http://lo1-qops-ecat-1/nexus/content/groups/public"
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '7.0.70'
+    compile group: 'com.google.guava', name: 'guava', version: '20.0'
+}
