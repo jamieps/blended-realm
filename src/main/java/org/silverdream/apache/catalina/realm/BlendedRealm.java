@@ -252,10 +252,10 @@ public class BlendedRealm extends RealmBase {
         String timeUnitStr  = getCacheTimeUnit();
         TimeUnit timeUnit   = TimeUnit.HOURS;
         int cacheTime       = getCacheTime();
-        if (!Arrays.asList(TimeUnit.values()).contains(timeUnitStr)) {
-            log.info("Cache time unit defaulted to hours");
-        } else {
+        try {
             timeUnit = TimeUnit.valueOf(timeUnitStr);
+        } catch (IllegalArgumentException iae) {
+            log.info("Cache time unit defaulted to hours");
         }
         if (cacheTime < 1) {
             cacheTime = 1;
