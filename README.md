@@ -1,10 +1,11 @@
-# tomcat-blended-realm
+# Tomcat blended realm
 
-Tomcat combined realm which caches the authentication result for a configurable period.
+An extension of a combined realm, which adds the following functionality:
 
-Roles are retrieved from the final realm specified, these are additive.
+- Authentication results, both positive and negative, are cached (in memory) for a configurable period.
+- Additional roles are retrieved from the final realm specified, these are additive.
 
-Both positive and negative results are cached.
+**Currently this is built against Tomcat 7, it is unlikely to work on other versions.**
 
 ## Configuration
 
