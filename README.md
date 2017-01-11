@@ -5,6 +5,9 @@ An extension of a combined realm, which adds the following functionality:
 - Authentication results, both positive and negative, are cached (in memory) for a configurable period.
 - Additional roles are retrieved from the final realm specified, these are additive.
 
+For example, a user can be authenticated against an LDAP directory but role information can be
+retrieved from a different realm (e.g. from a database).
+
 **Currently this is built against Tomcat 7, it is unlikely to work on other versions.**
 
 ## Configuration
