@@ -1,9 +1,7 @@
 apply plugin: 'java'
 
 repositories {
-    maven {
-        url "http://lo1-qops-ecat-1/nexus/content/groups/public"
-    }
+    mavenCentral()
 }
 
 dependencies {
