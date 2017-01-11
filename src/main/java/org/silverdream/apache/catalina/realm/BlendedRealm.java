@@ -58,6 +58,7 @@ public class BlendedRealm extends RealmBase {
     private Cache<GSSContext, Optional<GenericPrincipal>> gssCtxCache;
     private String cacheTimeUnit;
     private int cacheTime;
+    private Realm roleRealm;
 
     private static final Log log = LogFactory.getLog(BlendedRealm.class);
 
@@ -288,6 +289,9 @@ public class BlendedRealm extends RealmBase {
                 }
             }
         }
+        this.roleRealm = realms.get(realms.size()-1);
+        realms.remove(realms.size()-1);
+
         super.startInternal();
     }
 
@@ -313,6 +317,9 @@ public class BlendedRealm extends RealmBase {
                 ((Lifecycle) realm).stop();
             }
         }
+        if (roleRealm instanceof Lifecycle) {
+            ((Lifecycle) roleRealm).stop();
+        }
     }
 
 
@@ -325,6 +332,9 @@ public class BlendedRealm extends RealmBase {
             if (realm instanceof Lifecycle) {
                 ((Lifecycle) realm).destroy();
             }
+        }
+        if (roleRealm instanceof Lifecycle) {
+            ((Lifecycle) roleRealm).destroy();
         }
         super.destroyInternal();
     }
@@ -340,6 +350,7 @@ public class BlendedRealm extends RealmBase {
         for (Realm r : realms) {
             r.backgroundProcess();
         }
+        roleRealm.backgroundProcess();
     }
 
     /**
@@ -466,9 +477,6 @@ public class BlendedRealm extends RealmBase {
                     authRealm.getClass().getName()));
         }
 
-        // Last realm specified provides role information
-        Realm roleRealm = realms.get(realms.size()-1);
-
         if (authenticatedUser == null) {
             if (log.isDebugEnabled()) {
                 log.debug(sm.getString("blendedRealm.authFail", username,
@@ -484,7 +492,11 @@ public class BlendedRealm extends RealmBase {
             List<String> roles = new ArrayList<>();
             roles.addAll(Arrays.asList(authenticatedUser.getRoles()));
 
-            // Get additional role(s) from the second defined realm
+            // Get additional role(s) from the last realm defined
+            if (log.isDebugEnabled()) {
+                log.debug("Augmenting roles via " +
+                        roleRealm.getClass().getName());
+            }
             GenericPrincipal roleUser =
                     (GenericPrincipal)roleRealm.authenticate(username, "");
 
